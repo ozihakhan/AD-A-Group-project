@@ -1,0 +1,5 @@
+.vscode/
+*.exe
+person1_player_ui.cpp
+person2_enemy_score.cpp
+person3_game_logic.cpp

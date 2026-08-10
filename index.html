@@ -3,10 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Bike Race Game</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Hello World</h1>
-    
+
+<div id="gameContainer">
+    <!-- Start Screen -->
+    <div id="startMenu" class="menu-screen">
+        <h1>BIKE RACE GAME</h1>
+        <p>Use <b>A / D</b> or <b>Left / Right Arrow Keys</b></p>
+        <button onclick="startGame()">Start Game</button>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="gameOverMenu" class="menu-screen hidden">
+        <h1 class="game-over-title">GAME OVER</h1>
+        <p id="finalScore">Final Score: 0</p>
+        <button onclick="startGame()">Play Again</button>
+    </div>
+
+    <canvas id="gameCanvas" width="400" height="600"></canvas>
+
+    <!-- UI Dashboard -->
+    <div id="ui">
+        <h2>Dashboard</h2>
+        <hr>
+        <p>Score: <span id="scoreVal">0</span></p>
+        <p>Speed: <span id="speedVal">1x</span></p>
+        <hr>
+        <small>Controls:<br>A / D Keys<br>Arrow Keys</small>
+    </div>
+</div>
+
+<script src="game.js"></script>
 </body>
 </html>

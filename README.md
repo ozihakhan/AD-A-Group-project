@@ -1,4 +1,4 @@
-# 🚲 Bike Race Game
+ # 🚲 Bike Race Game
 
 An interactive, web-based 2D bike racing game developed as a group project using core web technologies.
 
@@ -33,8 +33,9 @@ cd AD-A-Group-project
 3.Launch the game:
 Simply double-click the index.html file to open and play the game in any modern web browser!
 📌 Features
+
 Smooth bike controls and movement
 
 Real-time score tracking
 
-Interactive obstacles and graphics
+Interactive obstacles and graphics 

@@ -8,9 +8,9 @@ An interactive, web-based 2D bike racing game developed as a group project using
 
 | Member | Role & Responsibilities |
 | :--- | :--- |
-| **Member 1** | HTML Structure & CSS Styling (`index.html`, `style.css`) |
-| **Member 2** | Core Game Logic & Mechanics (`game.js`) |
-| **Member 3** | Additional Features, Bug Fixes & Documentation |
+| **Member 1 - Israt Jahan Emu** | HTML Structure & CSS Styling (`index.html`, `style.css`) |
+| **Member 2 - Begum Rokeya Moriom** | Core Game Logic & Mechanics (`game.js`) |
+| **Member 3 - Oziha Khan** | Canvas Rendering, Graphics & Physics (`game.js`) |
 
 ---
 

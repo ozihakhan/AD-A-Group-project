@@ -24,14 +24,24 @@ An interactive, web-based 2D bike racing game developed as a group project using
 ---
 
 ## 🎮 How to Play / Run the Project
+### Option 1: Live Demo (Recommended)
+Simply click on the live link to play in your browser:
+👉 **[Live Game Link](https://ozihakhan.github.io/AD-A-Group-project/)**
+
+### Option 2: Run Locally
 
 1. **Clone the repository to your local machine:**
    ```bash
    git clone [https://github.com/ozihakhan/AD-A-Group-project.git](https://github.com/ozihakhan/AD-A-Group-project.git)
 2.Navigate to the project folder:
+
 cd AD-A-Group-project
+
 3.Launch the game:
+
 Simply double-click the index.html file to open and play the game in any modern web browser!
+
+
 📌 Features
 Smooth bike controls and movement
 

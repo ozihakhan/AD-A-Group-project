@@ -120,4 +120,159 @@ function triggerGameOver() {
     gameActive = false;
     finalScore.innerText = "Final Score: " + score;
     gameOverMenu.classList.remove("hidden");
-}git
+}
+// Collision Detection Logic
+function checkCollision(rect1, rect2) {
+    return (
+        rect1.x < rect2.x + rect2.width &&
+        rect1.x + rect1.width > rect2.x &&
+        rect1.y < rect2.y + rect2.height &&
+        rect1.y + rect1.height > rect2.y
+    );
+}
+
+// Background & Environment Drawing
+function drawWorld() {
+    ctx.fillStyle = "#75c9ff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#49a94d";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    drawCloud(42, 85 - (sceneryOffset * 0.15) % 180);
+    drawCloud(285, 185 - (sceneryOffset * 0.12) % 220);
+
+    ctx.fillStyle = "#e8d9ac";
+    ctx.fillRect(trackLeft - 8, 0, trackRight - trackLeft + 16, canvas.height);
+
+    ctx.fillStyle = "#4b5059";
+    ctx.fillRect(trackLeft, 0, trackRight - trackLeft, canvas.height);
+
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(trackLeft + 4, 0, 4, canvas.height);
+    ctx.fillRect(trackRight - 8, 0, 4, canvas.height);
+
+    ctx.fillStyle = "#ffd84a";
+    for (let y = -50; y < canvas.height; y += 90) {
+        let lineY = y + (roadOffset % 90);
+        ctx.fillRect(canvas.width / 2 - 4, lineY, 8, 42);
+    }
+
+    drawScenery();
+}
+
+function drawCloud(x, y) {
+    ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
+    ctx.beginPath();
+    ctx.arc(x, y, 14, 0, Math.PI * 2);
+    ctx.arc(x + 18, y - 8, 18, 0, Math.PI * 2);
+    ctx.arc(x + 38, y, 14, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+function drawScenery() {
+    for (let y = -180; y < canvas.height + 120; y += 180) {
+        const itemY = y + (sceneryOffset % 180);
+        drawTree(22, itemY + 25, 0.85);
+        drawTree(375, itemY + 80, 0.8);
+        drawHouse(8, itemY + 110, "#f7a24d", "#d85d5d");
+        drawHouse(347, itemY + 145, "#84b6e8", "#d85d5d");
+    }
+}
+
+function drawTree(x, y, scale) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(scale, scale);
+    ctx.fillStyle = "#704221";
+    ctx.fillRect(-4, 15, 8, 24);
+    ctx.fillStyle = "#18733a";
+    ctx.beginPath();
+    ctx.arc(0, 0, 18, 0, Math.PI * 2);
+    ctx.arc(-12, 11, 14, 0, Math.PI * 2);
+    ctx.arc(12, 11, 14, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = "#31984e";
+    ctx.beginPath();
+    ctx.arc(-6, -5, 9, 0, Math.PI * 2);
+    ctx.arc(8, 4, 9, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+}
+
+function drawHouse(x, y, wallColor, roofColor) {
+    ctx.fillStyle = wallColor;
+    ctx.fillRect(x, y, 40, 35);
+    ctx.fillStyle = roofColor;
+    ctx.beginPath();
+    ctx.moveTo(x - 5, y);
+    ctx.lineTo(x + 20, y - 22);
+    ctx.lineTo(x + 45, y);
+    ctx.fill();
+    ctx.fillStyle = "#744229";
+    ctx.fillRect(x + 15, y + 18, 10, 17);
+    ctx.fillStyle = "#c7f4ff";
+    ctx.fillRect(x + 4, y + 10, 8, 8);
+    ctx.fillRect(x + 28, y + 10, 8, 8);
+}
+
+// Vehicle & Rider Drawing Logic
+function drawBike(vehicle, isPlayer) {
+    const x = vehicle.x, y = vehicle.y, w = vehicle.width, h = vehicle.height;
+    ctx.save();
+
+    ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
+    ctx.beginPath();
+    ctx.ellipse(x + w / 2, y + h + 5, w / 2, 7, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = "#151515";
+    ctx.beginPath();
+    ctx.arc(x + 9, y + h - 10, 9, 0, Math.PI * 2);
+    ctx.arc(x + w - 9, y + h - 10, 9, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = "#b7c2cc";
+    ctx.beginPath();
+    ctx.arc(x + 9, y + h - 10, 3, 0, Math.PI * 2);
+    ctx.arc(x + w - 9, y + h - 10, 3, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = vehicle.color;
+    ctx.beginPath();
+    ctx.moveTo(x + 8, y + h - 18);
+    ctx.lineTo(x + w - 8, y + h - 18);
+    ctx.lineTo(x + w - 13, y + 27);
+    ctx.lineTo(x + 12, y + 27);
+    ctx.fill();
+
+    ctx.fillStyle = "#181818";
+    ctx.fillRect(x + 9, y + 27, w - 18, 8);
+
+    ctx.fillStyle = isPlayer ? "#214c8d" : "#6b235e";
+    ctx.fillRect(x + 12, y + 14, w - 24, 18);
+
+    ctx.fillStyle = isPlayer ? "#f2f6ff" : "#ffe34c";
+    ctx.beginPath();
+    ctx.arc(x + w / 2, y + 10, 10, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = "#243447";
+    ctx.fillRect(x + w / 2, y + 8, 9, 4);
+
+    ctx.strokeStyle = "#1b1b1b";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(x + w - 11, y + 32);
+    ctx.lineTo(x + w + 3, y + 24);
+    ctx.stroke();
+
+    if (isPlayer) {
+        ctx.fillStyle = "#fff4a5";
+        ctx.beginPath();
+        ctx.arc(x + w / 2, y + h - 23, 4, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    ctx.restore();
+}
